@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import "./App.css";
+import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput.tsx";
+import CharacterItem from "./components/CharacterItem/index.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [characters, setCharacters] = useState<
+    Array<{ name: string; id: number; episode: Array<string>; image: string }>
+  >([]);
+  useEffect(() => {
+    fetch("https://rickandmortyapi.com/api/character")
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setCharacters(res.results);
+      });
+  }, []);
+  console.log(characters);
   return (
     <>
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <MultiSelectAutoCompleteInput
+          options={characters.map((c) => {
+            return {
+              label: c.name,
+              value: c.id,
+              renderedItem: (
+                <CharacterItem
+                  id={c.id}
+                  name={c.name}
+                  episode={c.episode.length}
+                  image={c.image}
+                />
+              ),
+            };
+          })}
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
