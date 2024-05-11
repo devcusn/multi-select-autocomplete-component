@@ -12,7 +12,10 @@ const CharacterItem: React.FunctionComponent<CharacterItemProps> = ({
         <img src={image} />
       </div>
       <div className={classes.character_infos}>
-        <div className={classes.character_name}>{name}</div>
+        <div
+          dangerouslySetInnerHTML={{ __html: name }}
+          className={classes.character_name}
+        />
         <div className={classes.character_episode}>{episode} Episodes</div>
       </div>
     </div>

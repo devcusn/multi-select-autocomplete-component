@@ -1,0 +1,16 @@
+.chip {
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  height: min-content;
+  padding: 4px;
+}
+.chip_close {
+  cursor: pointer;
+  background-color: #94a3b8;
+  border-radius: 4px;
+  padding: 2px;
+  margin-left: 4px;
+}

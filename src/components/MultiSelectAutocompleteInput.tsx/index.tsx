@@ -1,19 +1,26 @@
 import React, { useState } from "react";
-import { MultiSelectAutoCompleteInputProps } from "./type";
-import CloseIcon from "../../assets/icon-close.svg";
+import { MultiSelectAutoCompleteInputProps, OptionType } from "./type";
+
 import classes from "./style.module.css";
+import Chip from "../Chip/Chip";
+
 const MultiSelectAutoCompleteInput: React.FunctionComponent<
   MultiSelectAutoCompleteInputProps
-> = ({ options }) => {
-  const [selectedOptions, setSelectedOptions] = useState([]);
+> = ({ options, onChangeInput }) => {
   const [inputStr, setInputStr] = useState("");
-  const onChangeInput = (e) => {
+  const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([]);
+
+  const onChangeInputHandler = (e) => {
     const value = e.target.value;
+
+    onChangeInput(value);
     setInputStr(value);
   };
-  const filteredOptions = options.filter((str) =>
+
+  const filteredOptions = options?.filter((str) =>
     str.label.toLowerCase().includes(inputStr.toLowerCase())
   );
+
   const selectOption = (o) => {
     const optionIndex = selectedOptions.findIndex((so) => so.value === o.value);
     if (optionIndex > -1) {
@@ -32,30 +39,24 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     <div className={classes.multiselect_autocomplete}>
       <div className={classes.input_container}>
         <div className={classes.selected_options}>
-          {selectedOptions.map((o) => {
+          {selectedOptions?.map((o) => {
             return (
-              <div className={classes.chip}>
-                {o.label}
-                <img
-                  onClick={() => {
-                    selectOption(o);
-                  }}
-                  className={classes.chip_close}
-                  width={12}
-                  height={12}
-                  src={CloseIcon}
-                />
-              </div>
+              <Chip
+                name={o.label}
+                onClick={() => {
+                  selectOption(o);
+                }}
+              />
             );
           })}
-          <input onChange={onChangeInput} className={classes.input} />
+          <input onChange={onChangeInputHandler} className={classes.input} />
         </div>
       </div>
       <div className={classes.options}>
-        {filteredOptions.map((o) => {
+        {filteredOptions?.map((o) => {
           return (
             <div className={classes.option}>
-              <button onClick={() => selectOption(o)}>check</button>
+              <input onClick={() => selectOption(o)} type="checkbox" />
               {o.renderedItem}
             </div>
           );
