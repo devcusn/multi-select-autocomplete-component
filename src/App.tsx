@@ -16,28 +16,25 @@ function App() {
         setCharacters(res.results);
       });
   }, []);
-  console.log(characters);
   return (
-    <>
-      <div>
-        <MultiSelectAutoCompleteInput
-          options={characters.map((c) => {
-            return {
-              label: c.name,
-              value: c.id,
-              renderedItem: (
-                <CharacterItem
-                  id={c.id}
-                  name={c.name}
-                  episode={c.episode.length}
-                  image={c.image}
-                />
-              ),
-            };
-          })}
-        />
-      </div>
-    </>
+    <div className="app_container">
+      <MultiSelectAutoCompleteInput
+        options={characters.map((c) => {
+          return {
+            label: c.name,
+            value: c.id,
+            renderedItem: (
+              <CharacterItem
+                id={c.id}
+                name={c.name}
+                episode={c.episode.length}
+                image={c.image}
+              />
+            ),
+          };
+        })}
+      />
+    </div>
   );
 }
 
