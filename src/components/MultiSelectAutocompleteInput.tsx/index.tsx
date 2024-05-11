@@ -8,7 +8,7 @@ import useToggle from "../../hooks/useToggle";
 
 const MultiSelectAutoCompleteInput: React.FunctionComponent<
   MultiSelectAutoCompleteInputProps
-> = ({ options, onChangeInput }) => {
+> = ({ options, onChangeInput, isLoading }) => {
   const [toggle, handleToggle] = useToggle(true);
   const [inputStr, setInputStr] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([]);
@@ -59,6 +59,7 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
 
       {toggle && (
         <div className={classes.options}>
+          {isLoading && <div>Loading</div>}
           {filteredOptions ? (
             filteredOptions?.map((o) => {
               return (

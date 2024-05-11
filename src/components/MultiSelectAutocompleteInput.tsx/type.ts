@@ -6,4 +6,5 @@ export type OptionType = {
 export type MultiSelectAutoCompleteInputProps = {
   options: Array<OptionType>;
   onChangeInput: (param: string) => void;
+  isLoading: boolean;
 };

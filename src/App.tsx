@@ -10,6 +10,10 @@ const App: React.FunctionComponent = () => {
   const characters = useSelector(
     (state: RootState) => state.characters.characters
   );
+  const isLoading = useSelector(
+    (state: RootState) => state.characters.isLoading
+  );
+  console.log(isLoading);
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
@@ -19,6 +23,7 @@ const App: React.FunctionComponent = () => {
   return (
     <div className="app_container">
       <MultiSelectAutoCompleteInput
+        isLoading={isLoading}
         onChangeInput={setFilterParam}
         options={characters?.map((c) => {
           return {
