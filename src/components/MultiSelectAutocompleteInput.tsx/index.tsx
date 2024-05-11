@@ -4,10 +4,12 @@ import ArrowDownIcon from "../../assets/arrow-down.svg";
 import classes from "./style.module.css";
 import Chip from "../Chip/Chip";
 import IconButton from "../IconButton";
+import useToggle from "../../hooks/useToggle";
 
 const MultiSelectAutoCompleteInput: React.FunctionComponent<
   MultiSelectAutoCompleteInputProps
 > = ({ options, onChangeInput }) => {
+  const [toggle, handleToggle] = useToggle(true);
   const [inputStr, setInputStr] = useState("");
   const [selectedOptions, setSelectedOptions] = useState<Array<OptionType>>([]);
 
@@ -52,18 +54,21 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
           })}
           <input onChange={onChangeInputHandler} className={classes.input} />
         </div>
-        <IconButton icon={ArrowDownIcon} onClick={() => {}} />
+        <IconButton icon={ArrowDownIcon} onClick={handleToggle} />
       </div>
-      <div className={classes.options}>
-        {filteredOptions?.map((o) => {
-          return (
-            <div className={classes.option}>
-              <input onClick={() => selectOption(o)} type="checkbox" />
-              {o.renderedItem}
-            </div>
-          );
-        })}
-      </div>
+
+      {toggle && (
+        <div className={classes.options}>
+          {filteredOptions?.map((o) => {
+            return (
+              <div className={classes.option}>
+                <input onClick={() => selectOption(o)} type="checkbox" />
+                {o.renderedItem}
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };
