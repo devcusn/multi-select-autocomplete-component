@@ -1,7 +1,16 @@
 .icon_button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: transparent;
   border: none;
   outline: none;
   width: min-content;
   height: min-content;
+  cursor: pointer;
+  padding: 2px;
+}
+.icon_button:hover {
+  background-color: #e2e8f0;
+  border-radius: 50%;
 }
