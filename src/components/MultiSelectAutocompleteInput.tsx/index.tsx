@@ -3,6 +3,7 @@ import { MultiSelectAutoCompleteInputProps, OptionType } from "./type";
 import ArrowDownIcon from "../../assets/arrow-down.svg";
 import classes from "./style.module.css";
 import Chip from "../Chip/Chip";
+import IconButton from "../IconButton";
 
 const MultiSelectAutoCompleteInput: React.FunctionComponent<
   MultiSelectAutoCompleteInputProps
@@ -50,8 +51,8 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
             );
           })}
           <input onChange={onChangeInputHandler} className={classes.input} />
-          <img src={ArrowDownIcon} width={12} height={12} />
         </div>
+        <IconButton icon={ArrowDownIcon} onClick={() => {}} />
       </div>
       <div className={classes.options}>
         {filteredOptions?.map((o) => {
