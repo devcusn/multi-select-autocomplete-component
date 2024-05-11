@@ -16,7 +16,7 @@
   align-items: center;
   border-bottom: 1px #94a3b8 solid;
   cursor: pointer;
-  padding: 8px;
+  padding: 2px 8px;
 }
 
 /* input */
@@ -24,8 +24,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  padding: 4px;
-  border-radius: 12px;
+  padding: 2px;
+  border-radius: 10px;
   border: 1px #94a3b8 solid;
 }
 .input {
@@ -43,4 +43,8 @@
   padding: 4px;
   gap: 4px;
   width: 100%;
+}
+
+.not_found {
+  padding: 4px;
 }

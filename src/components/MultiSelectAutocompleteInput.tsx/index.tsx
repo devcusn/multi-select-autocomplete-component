@@ -59,14 +59,18 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
 
       {toggle && (
         <div className={classes.options}>
-          {filteredOptions?.map((o) => {
-            return (
-              <div className={classes.option}>
-                <input onClick={() => selectOption(o)} type="checkbox" />
-                {o.renderedItem}
-              </div>
-            );
-          })}
+          {filteredOptions ? (
+            filteredOptions?.map((o) => {
+              return (
+                <div className={classes.option}>
+                  <input onClick={() => selectOption(o)} type="checkbox" />
+                  {o.renderedItem}
+                </div>
+              );
+            })
+          ) : (
+            <div className={classes.not_found}>Not Found</div>
+          )}
         </div>
       )}
     </div>

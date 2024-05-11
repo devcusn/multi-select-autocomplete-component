@@ -1,6 +1,5 @@
 .character_item {
   display: flex;
-  background-color: rgba(238, 238, 238, 0);
   padding: 8px;
 }
 .character_image {
@@ -12,14 +11,19 @@
   border-radius: 8px;
 }
 .character_infos {
+  display: flex;
+  flex-direction: column;
   padding: 0px 8px;
 }
 .character_name {
   font-size: 14px;
   text-align: start;
+  color: #475569;
+  flex: 1;
 }
-
 .character_episode {
-  font-size: 14px;
+  font-size: 12px;
   text-align: start;
+  color: #67778d;
+  flex: 1;
 }
