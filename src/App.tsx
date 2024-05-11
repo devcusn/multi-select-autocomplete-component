@@ -3,19 +3,24 @@ import { useEffect, useState } from "react";
 import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput.tsx";
 import CharacterItem from "./components/CharacterItem/index.tsx";
 import "./App.css";
-import { connect } from "react-redux";
-const App: React.FunctionComponent = ({ getCharacterDispatch, characters }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { Dispatch, RootState } from "./store/store.ts";
+const App: React.FunctionComponent = () => {
   const [filterParam, setFilterParam] = useState("");
+  const characters = useSelector(
+    (state: RootState) => state.characters.characters
+  );
+  const dispatch = useDispatch<Dispatch>();
+
   useEffect(() => {
-    getCharacterDispatch(filterParam);
-  }, [filterParam, getCharacterDispatch]);
+    dispatch.characters.getCharactersAsync(filterParam);
+  }, [filterParam, dispatch]);
 
   return (
     <div className="app_container">
       <MultiSelectAutoCompleteInput
         onChangeInput={setFilterParam}
         options={characters?.map((c) => {
-          console.log(c);
           return {
             label: c.name,
             value: c.id,
@@ -38,15 +43,4 @@ const App: React.FunctionComponent = ({ getCharacterDispatch, characters }) => {
   );
 };
 
-const mapState = (state) => ({
-  characters: state.characters,
-});
-
-const mapDispatch = (dispatch) => ({
-  getCharacterDispatch: (param: string) =>
-    dispatch.characters.getCharactersAsync(param),
-});
-
-const AppContainer = connect(mapState, mapDispatch)(App);
-
-export default AppContainer;
+export default App;

@@ -13,13 +13,14 @@ export const characters = createModel<RootModel>()({
   } as CharactersState,
   reducers: {
     addCharacters(state, payload = []) {
-      console.log(state);
-      return payload;
+      return {
+        ...state,
+        characters: payload,
+      };
     },
   },
   effects: (dispatch) => ({
-    async getCharactersAsync(payload: string, state) {
-      console.log(state);
+    async getCharactersAsync(payload: string = "") {
       const res = await getCharacters(payload);
       dispatch.characters.addCharacters(res);
     },
