@@ -2,28 +2,20 @@ import { useEffect, useState } from "react";
 
 import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput.tsx";
 import CharacterItem from "./components/CharacterItem/index.tsx";
-import { CharacterModel } from "./services/models.ts";
 import "./App.css";
-
-const App: React.FunctionComponent = () => {
+import { connect } from "react-redux";
+const App: React.FunctionComponent = ({ getCharacterDispatch, characters }) => {
   const [filterParam, setFilterParam] = useState("");
-  const [characters, setCharacters] = useState<Array<CharacterModel>>([]);
-
   useEffect(() => {
-    fetch(`https://rickandmortyapi.com/api/character?name=${filterParam}`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setCharacters(res.results);
-      });
-  }, [filterParam]);
+    getCharacterDispatch(filterParam);
+  }, [filterParam, getCharacterDispatch]);
 
   return (
     <div className="app_container">
       <MultiSelectAutoCompleteInput
         onChangeInput={setFilterParam}
         options={characters?.map((c) => {
+          console.log(c);
           return {
             label: c.name,
             value: c.id,
@@ -46,4 +38,15 @@ const App: React.FunctionComponent = () => {
   );
 };
 
-export default App;
+const mapState = (state) => ({
+  characters: state.characters,
+});
+
+const mapDispatch = (dispatch) => ({
+  getCharacterDispatch: (param: string) =>
+    dispatch.characters.getCharactersAsync(param),
+});
+
+const AppContainer = connect(mapState, mapDispatch)(App);
+
+export default AppContainer;
