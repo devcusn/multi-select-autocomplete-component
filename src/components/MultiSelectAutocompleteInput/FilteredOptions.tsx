@@ -32,7 +32,7 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
       selectedEl.focus();
     }
   };
-
+  console.log(filteredOptions);
   return (
     <div onKeyUp={keyPressHandler} className={classes.options}>
       {isLoading && <div>Loading</div>}
@@ -46,7 +46,7 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
                   selectOption(o, false);
                 }
               }}
-              checked={isCheckedHandler(o.value)}
+              defaultChecked={isCheckedHandler(o.value)}
               onClick={() => selectOption(o, false)}
               type="checkbox"
             />
@@ -54,7 +54,9 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
           </div>
         );
       })}
-      {!filteredOptions && <div className={classes.not_found}>Not Found</div>}
+      {filteredOptions.length === 0 && !isLoading && (
+        <div className={classes.not_found}>Not Found</div>
+      )}
     </div>
   );
 };
