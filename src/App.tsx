@@ -1,19 +1,16 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput/index.tsx";
 import CharacterItem from "./components/CharacterItem/index.tsx";
+import { Dispatch } from "./store/store.ts";
+import { selectCharacters, selectIsLoading } from "./store/selectors.ts";
 import "./App.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Dispatch, RootState } from "./store/store.ts";
+
 const App: React.FunctionComponent = () => {
   const [filterParam, setFilterParam] = useState("");
-  const characters = useSelector(
-    (state: RootState) => state.characters.characters
-  );
-  const isLoading = useSelector(
-    (state: RootState) => state.characters.isLoading
-  );
-
+  const characters = useSelector(selectCharacters);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {
