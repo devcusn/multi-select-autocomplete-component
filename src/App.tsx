@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput.tsx";
+import MultiSelectAutoCompleteInput from "./components/MultiSelectAutocompleteInput/index.tsx";
 import CharacterItem from "./components/CharacterItem/index.tsx";
 import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +13,7 @@ const App: React.FunctionComponent = () => {
   const isLoading = useSelector(
     (state: RootState) => state.characters.isLoading
   );
-  console.log(isLoading);
+
   const dispatch = useDispatch<Dispatch>();
 
   useEffect(() => {

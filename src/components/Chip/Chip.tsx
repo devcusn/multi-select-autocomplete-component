@@ -4,7 +4,15 @@ import classes from "./style.module.css";
 import { ChipProps } from "./types";
 const Chip: React.FunctionComponent<ChipProps> = ({ name, onClick }) => {
   return (
-    <div className={classes.chip}>
+    <div
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          onClick();
+        }
+      }}
+      tabIndex={0}
+      className={classes.chip}
+    >
       {name}
       <img
         onClick={onClick}

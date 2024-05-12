@@ -38,6 +38,12 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     });
   };
 
+  const isCheckedHandler = (value: number) => {
+    return selectedOptions.findIndex((so) => so.value === value) > -1
+      ? true
+      : false;
+  };
+
   return (
     <div className={classes.multiselect_autocomplete}>
       <div className={classes.input_container}>
@@ -56,7 +62,6 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
         </div>
         <IconButton icon={ArrowDownIcon} onClick={handleToggle} />
       </div>
-
       {toggle && (
         <div className={classes.options}>
           {isLoading && <div>Loading</div>}
@@ -64,7 +69,16 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
             filteredOptions?.map((o) => {
               return (
                 <div className={classes.option}>
-                  <input onClick={() => selectOption(o)} type="checkbox" />
+                  <input
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        selectOption(o);
+                      }
+                    }}
+                    checked={isCheckedHandler(o.value)}
+                    onClick={() => selectOption(o)}
+                    type="checkbox"
+                  />
                   {o.renderedItem}
                 </div>
               );
@@ -77,4 +91,5 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     </div>
   );
 };
+
 export default MultiSelectAutoCompleteInput;
