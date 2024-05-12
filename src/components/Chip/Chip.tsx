@@ -5,6 +5,8 @@ import { ChipProps } from "./types";
 const Chip: React.FunctionComponent<ChipProps> = ({ name, onClick }) => {
   return (
     <div
+      onClick={onClick}
+      data-target="selected-option"
       onKeyDown={(e) => {
         if (e.key === "Enter") {
           onClick();
