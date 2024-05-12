@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { MultiSelectAutoCompleteInputProps, OptionType } from "./types";
 import ArrowDownIcon from "../../assets/arrow-down.svg";
 import classes from "./style.module.css";
@@ -47,16 +48,18 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     });
   };
 
-  const selectedOptionsKeyPressHandler = (e: KeyboardEvent) => {
+  const selectedOptionsKeyPressHandler: React.KeyboardEventHandler<
+    HTMLDivElement
+  > = (e) => {
     if (e.key === "ArrowRight") {
       setNext((prev) => prev + 1);
-      const selectedEl = document.querySelectorAll(
+      const selectedEl = document.querySelectorAll<HTMLDivElement>(
         '[data-target="selected-option"]'
       )[next + 1];
       selectedEl.focus();
     } else if (e.key === "ArrowLeft") {
       setNext((prev) => prev - 1);
-      const selectedEl = document.querySelectorAll(
+      const selectedEl = document.querySelectorAll<HTMLDivElement>(
         '[data-target="selected-option"]'
       )[next - 1];
       selectedEl.focus();

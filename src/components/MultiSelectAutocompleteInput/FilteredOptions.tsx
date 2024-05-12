@@ -17,16 +17,16 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
       : false;
   };
 
-  const keyPressHandler = (e: KeyboardEvent) => {
+  const keyPressHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
     if (e.key === "ArrowDown") {
       setNext((prev) => prev + 1);
-      const selectedEl = document.querySelectorAll(
+      const selectedEl = document.querySelectorAll<HTMLDivElement>(
         '[data-target="select-option"]'
       )[next + 1];
       selectedEl.focus();
     } else if (e.key === "ArrowUp") {
       setNext((prev) => prev - 1);
-      const selectedEl = document.querySelectorAll(
+      const selectedEl = document.querySelectorAll<HTMLDivElement>(
         '[data-target="select-option"]'
       )[next - 1];
       selectedEl.focus();
