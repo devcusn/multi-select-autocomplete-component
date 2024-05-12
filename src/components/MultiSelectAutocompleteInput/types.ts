@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type OptionType = {
   label: string;
   value: number;
@@ -17,4 +19,13 @@ export type FilteredOptionsProps = {
   selectedOptions: Array<OptionType>;
   selectOption: (o: OptionType, cursor: boolean) => void;
   isLoading: boolean;
+};
+
+export type MultiSelectInputAreaProps = {
+  next: number;
+  setNext: Dispatch<SetStateAction<number>>;
+  selectedOptions: Array<OptionType>;
+  selectOption: (o: OptionType, cursor: boolean) => void;
+  handleToggle: () => void;
+  onChangeInputHandler: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
