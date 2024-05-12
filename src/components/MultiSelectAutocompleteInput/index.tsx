@@ -25,7 +25,7 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     str.label.toLowerCase().includes(inputStr.toLowerCase())
   );
 
-  const selectOption = (o: OptionType, cursor: boolean) => {
+  const selectOption = (o: OptionType, cursor: boolean = false) => {
     const optionIndexInSelectedOptions = selectedOptions.findIndex(
       (so) => so.value === o.value
     );
@@ -45,22 +45,6 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
     setSelectedOptions((prev) => {
       return [...prev, o];
     });
-  };
-
-  const keyPressHandler = (e: KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
-      setNext((prev) => prev + 1);
-      const selectedEl = document.querySelectorAll(
-        '[data-target="select-option"]'
-      )[next + 1];
-      selectedEl.focus();
-    } else if (e.key === "ArrowUp") {
-      setNext((prev) => prev - 1);
-      const selectedEl = document.querySelectorAll(
-        '[data-target="select-option"]'
-      )[next - 1];
-      selectedEl.focus();
-    }
   };
 
   const selectedOptionsKeyPressHandler = (e: KeyboardEvent) => {
@@ -95,19 +79,12 @@ const MultiSelectAutoCompleteInput: React.FunctionComponent<
         <IconButton icon={ArrowDownIcon} onClick={handleToggle} />
       </div>
       {toggle && (
-        <div onKeyUp={keyPressHandler} className={classes.options}>
-          {isLoading && <div>Loading</div>}
-          {filteredOptions && (
-            <FilteredOptions
-              filteredOptions={filteredOptions}
-              selectedOptions={selectedOptions}
-              selectOption={selectOption}
-            />
-          )}
-          {!filteredOptions && (
-            <div className={classes.not_found}>Not Found</div>
-          )}
-        </div>
+        <FilteredOptions
+          filteredOptions={filteredOptions}
+          selectedOptions={selectedOptions}
+          selectOption={selectOption}
+          isLoading={isLoading}
+        />
       )}
     </div>
   );

@@ -15,5 +15,6 @@ export type SelectedOptionsProps = {
 export type FilteredOptionsProps = {
   filteredOptions: Array<OptionType>;
   selectedOptions: Array<OptionType>;
-  selectOption: (o: OptionType) => void;
+  selectOption: (o: OptionType, cursor: boolean) => void;
+  isLoading: boolean;
 };
