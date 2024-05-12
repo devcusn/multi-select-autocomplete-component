@@ -18,21 +18,33 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
   };
 
   const keyPressHandler: React.KeyboardEventHandler<HTMLDivElement> = (e) => {
+    const selectedElements = document.querySelectorAll<HTMLDivElement>(
+      '[data-target="select-option"]'
+    );
     if (e.key === "ArrowDown") {
-      setNext((prev) => prev + 1);
-      const selectedEl = document.querySelectorAll<HTMLDivElement>(
-        '[data-target="select-option"]'
-      )[next + 1];
+      setNext((prev) => {
+        const selectedElArr = Array.from(selectedElements).length;
+        if (prev === selectedElArr - 1) {
+          return prev;
+        }
+        return prev + 1;
+      });
+
+      const selectedEl = selectedElements[next + 1];
       selectedEl.focus();
     } else if (e.key === "ArrowUp") {
-      setNext((prev) => prev - 1);
-      const selectedEl = document.querySelectorAll<HTMLDivElement>(
-        '[data-target="select-option"]'
-      )[next - 1];
+      setNext((prev) => {
+        console.log(prev);
+        if (prev === 0) {
+          return 0;
+        }
+        return prev - 1;
+      });
+      const selectedEl = selectedElements[next - 1];
       selectedEl.focus();
     }
   };
-  console.log(filteredOptions);
+
   return (
     <div onKeyUp={keyPressHandler} className={classes.options}>
       {isLoading && <div>Loading</div>}
@@ -46,7 +58,7 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
                   selectOption(o, false);
                 }
               }}
-              defaultChecked={isCheckedHandler(o.value)}
+              checked={isCheckedHandler(o.value)}
               onClick={() => selectOption(o, false)}
               type="checkbox"
             />

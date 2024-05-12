@@ -1,4 +1,4 @@
 export type ChipProps = {
   name: string;
-  onClick: () => void;
+  onClick: (bool: boolean) => void;
 };

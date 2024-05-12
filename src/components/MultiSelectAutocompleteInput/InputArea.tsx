@@ -18,16 +18,30 @@ const InputArea: React.FunctionComponent<MultiSelectInputAreaProps> = ({
     HTMLDivElement
   > = (e) => {
     if (e.key === "ArrowRight") {
-      setNext((prev) => prev + 1);
-      const selectedEl = document.querySelectorAll<HTMLDivElement>(
+      const selectedElements = document.querySelectorAll<HTMLDivElement>(
         '[data-target="selected-option"]'
-      )[next + 1];
+      );
+      const selectedEl = selectedElements[next];
+      setNext((prev) => {
+        const selectedElArr = Array.from(selectedElements).length;
+        if (prev === selectedElArr - 1) {
+          return prev;
+        }
+        return prev + 1;
+      });
+
       selectedEl.focus();
     } else if (e.key === "ArrowLeft") {
-      setNext((prev) => prev - 1);
+      setNext((prev) => {
+        console.log(prev);
+        if (prev === 0) {
+          return 0;
+        }
+        return prev - 1;
+      });
       const selectedEl = document.querySelectorAll<HTMLDivElement>(
         '[data-target="selected-option"]'
-      )[next - 1];
+      )[next];
       selectedEl.focus();
     }
   };

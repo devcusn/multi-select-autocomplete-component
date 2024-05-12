@@ -5,11 +5,11 @@ import { ChipProps } from "./types";
 const Chip: React.FunctionComponent<ChipProps> = ({ name, onClick }) => {
   return (
     <div
-      onClick={onClick}
+      onClick={() => onClick(true)}
       data-target="selected-option"
       onKeyDown={(e) => {
         if (e.key === "Enter") {
-          onClick();
+          onClick(false);
         }
       }}
       tabIndex={0}
@@ -17,7 +17,7 @@ const Chip: React.FunctionComponent<ChipProps> = ({ name, onClick }) => {
     >
       {name}
       <img
-        onClick={onClick}
+        onClick={() => onClick(false)}
         className={classes.chip_close}
         width={12}
         height={12}

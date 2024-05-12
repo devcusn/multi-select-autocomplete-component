@@ -9,8 +9,8 @@ const SelectedOptions: React.FunctionComponent<SelectedOptionsProps> = ({
     return (
       <Chip
         name={o.label}
-        onClick={() => {
-          selectOption(o, true);
+        onClick={(bool) => {
+          selectOption(o, bool);
         }}
       />
     );
