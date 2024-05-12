@@ -33,7 +33,6 @@ const InputArea: React.FunctionComponent<MultiSelectInputAreaProps> = ({
       selectedEl.focus();
     } else if (e.key === "ArrowLeft") {
       setNext((prev) => {
-        console.log(prev);
         if (prev === 0) {
           return 0;
         }

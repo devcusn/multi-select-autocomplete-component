@@ -34,7 +34,6 @@ const FilteredOptions: React.FunctionComponent<FilteredOptionsProps> = ({
       selectedEl.focus();
     } else if (e.key === "ArrowUp") {
       setNext((prev) => {
-        console.log(prev);
         if (prev === 0) {
           return 0;
         }
